@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public GameObject _weaponParent;
     public GameObject _weaponObjInHand = null;
 
+    public Weapon _weaponInHand = null;
+
     public Rigidbody2D _rb;
 
     public Text _playerHealthDisp;
@@ -60,6 +62,9 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer();
 
+        Vector2 aimPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        AimPlayer(aimPos);
+
         WeaponInput();
     }
 
@@ -85,7 +90,28 @@ public class PlayerController : MonoBehaviour
             movementDir += new Vector2(1.0f, 0.0f);
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            _firing = true;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            _firing = false;
+        }
+
         _rb.velocity = movementDir * (_playerSpeed);
+    }
+
+    private void AimPlayer(Vector2 aimPos)
+    {
+        Vector2 lookAtDir;
+
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(_player.transform.position);
+        lookAtDir = aimPos - new Vector2(playerScreenPoint.x, playerScreenPoint.y);
+
+        float angle = Mathf.Atan2(-lookAtDir.x, lookAtDir.y) * Mathf.Rad2Deg;
+
+        _player.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
     
     private void WeaponInput()
@@ -135,6 +161,7 @@ public class PlayerController : MonoBehaviour
             Destroy(_weaponParent.transform.GetChild(0).gameObject);
 
             _weaponObjInHand = null;
+            _weaponInHand = null;
         }
 
         _isHoldingWeapon = false;
@@ -153,6 +180,7 @@ public class PlayerController : MonoBehaviour
             if (num < _weaponPrefabs.Count)
             {
                 _weaponObjInHand = Instantiate(_weaponPrefabs[num], _weaponParent.transform);
+                _weaponInHand = _weaponObjInHand.GetComponent<Weapon>();
             }
 
             _currentWeapon = num;
@@ -222,9 +250,9 @@ public class PlayerController : MonoBehaviour
 
     private void FireWeapon()
     {
-        if (_weaponObjInHand != null)
+        if (_weaponInHand != null)
         {
-
+            _weaponInHand.Attack();
         }
     }
 }
