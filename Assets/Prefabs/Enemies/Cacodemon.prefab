@@ -2010,7 +2010,7 @@ GameObject:
   - component: {fileID: 8354526247657530639}
   m_Layer: 7
   m_Name: Cacodemon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2083,7 +2083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackSound: {fileID: 0}
   _attackRate: 4
-  _bulletPrefab: {fileID: 495124747518115638, guid: 7391d4ef3ac80104895adfc8697f0379, type: 3}
+  _bulletPrefab: {fileID: 8748559324765426364, guid: 3d1f1b450ae36754b98bf78a6940d9a8, type: 3}
   _firingPoint: {fileID: 1172708936443401615}
   _numBullets: 1
   _spreadAngle: 0

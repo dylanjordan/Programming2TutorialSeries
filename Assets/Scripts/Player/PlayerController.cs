@@ -194,6 +194,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
+        Debug.Log(damage);
     }
 
     public void HealDamage (float heal)

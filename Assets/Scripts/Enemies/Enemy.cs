@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _currentHealth = damage;
+        _currentHealth -= damage;
     }
 
     public void HealDamage(float heal)
