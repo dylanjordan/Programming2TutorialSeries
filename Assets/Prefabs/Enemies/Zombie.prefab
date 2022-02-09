@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 10
   _killPointVal: 250
-  _enemySpeed: 6
+  _enemySpeed: 5
   _contactDamage: 0.3
 --- !u!1 &4623378610394885132
 GameObject:

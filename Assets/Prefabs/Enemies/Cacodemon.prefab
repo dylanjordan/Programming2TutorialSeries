@@ -2065,7 +2065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 30
   _killPointVal: 500
-  _enemySpeed: 5
+  _enemySpeed: 4
   _contactDamage: 1
   _fireBallCannon: {fileID: 8354526247657530639}
   _fleeDist: 6
@@ -2082,9 +2082,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackSound: {fileID: 0}
-  _attackRate: 4
+  _attackRate: 6
   _bulletPrefab: {fileID: 8748559324765426364, guid: 3d1f1b450ae36754b98bf78a6940d9a8, type: 3}
   _firingPoint: {fileID: 1172708936443401615}
   _numBullets: 1
   _spreadAngle: 0
-  _bulletSpeed: 3
+  _bulletSpeed: 5

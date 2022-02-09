@@ -411,10 +411,11 @@ MonoBehaviour:
   _enemyTypes:
   - {fileID: 8456704373741039679, guid: b0d19f95fd11b1848bbe69502d98c8ab, type: 3}
   - {fileID: 5148199999585487682, guid: fb1c9193910888347b93cbce6da17678, type: 3}
+  - {fileID: 5248786927377898744, guid: 9f785edb0f72fd245b61ea9b2701c90b, type: 3}
   _spawnPoints:
   - {fileID: 520339661}
   - {fileID: 1714182060}
-  _desiredEnemies: 5
+  _desiredEnemies: 8
   _spawnRate: 2
 --- !u!1 &519420028
 GameObject:
