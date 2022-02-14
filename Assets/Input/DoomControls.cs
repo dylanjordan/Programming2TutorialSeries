@@ -98,6 +98,15 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedBoost"",
+                    ""type"": ""Button"",
+                    ""id"": ""9fc64928-cbbb-4adf-8d6f-ed23a07b7154"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -298,6 +307,28 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
                     ""action"": ""MeleeEquip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba228854-2a3f-4a06-bd34-747351ada342"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Hold(duration=4)"",
+                    ""processors"": """",
+                    ""groups"": ""Mouse"",
+                    ""action"": ""SpeedBoost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f77e289b-c55b-4590-8fd9-0691352faa7d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Hold(duration=4)"",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""SpeedBoost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -342,6 +373,7 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
         m_Doom_Default_CycleWeaponUp = m_Doom_Default.FindAction("CycleWeaponUp", throwIfNotFound: true);
         m_Doom_Default_AimingController = m_Doom_Default.FindAction("AimingController", throwIfNotFound: true);
         m_Doom_Default_MeleeEquip = m_Doom_Default.FindAction("MeleeEquip", throwIfNotFound: true);
+        m_Doom_Default_SpeedBoost = m_Doom_Default.FindAction("SpeedBoost", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -409,6 +441,7 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Doom_Default_CycleWeaponUp;
     private readonly InputAction m_Doom_Default_AimingController;
     private readonly InputAction m_Doom_Default_MeleeEquip;
+    private readonly InputAction m_Doom_Default_SpeedBoost;
     public struct Doom_DefaultActions
     {
         private @DoomControls m_Wrapper;
@@ -421,6 +454,7 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
         public InputAction @CycleWeaponUp => m_Wrapper.m_Doom_Default_CycleWeaponUp;
         public InputAction @AimingController => m_Wrapper.m_Doom_Default_AimingController;
         public InputAction @MeleeEquip => m_Wrapper.m_Doom_Default_MeleeEquip;
+        public InputAction @SpeedBoost => m_Wrapper.m_Doom_Default_SpeedBoost;
         public InputActionMap Get() { return m_Wrapper.m_Doom_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -454,6 +488,9 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
                 @MeleeEquip.started -= m_Wrapper.m_Doom_DefaultActionsCallbackInterface.OnMeleeEquip;
                 @MeleeEquip.performed -= m_Wrapper.m_Doom_DefaultActionsCallbackInterface.OnMeleeEquip;
                 @MeleeEquip.canceled -= m_Wrapper.m_Doom_DefaultActionsCallbackInterface.OnMeleeEquip;
+                @SpeedBoost.started -= m_Wrapper.m_Doom_DefaultActionsCallbackInterface.OnSpeedBoost;
+                @SpeedBoost.performed -= m_Wrapper.m_Doom_DefaultActionsCallbackInterface.OnSpeedBoost;
+                @SpeedBoost.canceled -= m_Wrapper.m_Doom_DefaultActionsCallbackInterface.OnSpeedBoost;
             }
             m_Wrapper.m_Doom_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -482,6 +519,9 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
                 @MeleeEquip.started += instance.OnMeleeEquip;
                 @MeleeEquip.performed += instance.OnMeleeEquip;
                 @MeleeEquip.canceled += instance.OnMeleeEquip;
+                @SpeedBoost.started += instance.OnSpeedBoost;
+                @SpeedBoost.performed += instance.OnSpeedBoost;
+                @SpeedBoost.canceled += instance.OnSpeedBoost;
             }
         }
     }
@@ -514,5 +554,6 @@ public partial class @DoomControls : IInputActionCollection2, IDisposable
         void OnCycleWeaponUp(InputAction.CallbackContext context);
         void OnAimingController(InputAction.CallbackContext context);
         void OnMeleeEquip(InputAction.CallbackContext context);
+        void OnSpeedBoost(InputAction.CallbackContext context);
     }
 }

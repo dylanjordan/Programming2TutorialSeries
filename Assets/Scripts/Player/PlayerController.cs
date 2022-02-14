@@ -34,16 +34,21 @@ public class PlayerController : MonoBehaviour
 
     public float _maxHealth = 100.0f;
     public float _currentHealth = 100.0f;
+    public float _coolDown = 3;
 
     [Range(1.0f, 10.0f)]
     public float _playerSpeed = 10.0f;
 
+    private float _nextBoost = 0;
+
     public bool _isDead = false;
     public bool _isHoldingWeapon = false;
+    public bool _SpeedBoost = false;
 
     private bool _usingMouseInput = true;
     private bool _LastHoldVal = false;
     private bool _firing = false;
+    private bool _boost;
 
     private int _currentWeapon = -1;
     // Start is called before the first frame update
@@ -88,6 +93,20 @@ public class PlayerController : MonoBehaviour
         {
             FireWeapon();
         }
+
+        if (Time.time > _nextBoost)
+        {
+            if (_boost)
+            {
+                SpeedBoost();
+                _nextBoost = Time.time + _coolDown;
+                _boost = false;
+            }
+        if (Time.time < _nextBoost)
+            {
+                _playerSpeed = 10;
+            }
+        }
     }
 
     private void InitInputActions()
@@ -109,6 +128,8 @@ public class PlayerController : MonoBehaviour
         _dc.Doom_Default.CycleWeaponUp.started += ctx => CycleWeaponUp();
 
         _dc.Doom_Default.MeleeEquip.started += ctx => EquipMelee();
+
+        _dc.Doom_Default.SpeedBoost.started += ctx => _boost = true;
     }
 
     public void UpdateCurrentControlScheme()
@@ -284,5 +305,10 @@ public class PlayerController : MonoBehaviour
         {
             _weaponInHand.Attack();
         }
+    }
+
+    private void SpeedBoost()
+    {
+        _playerSpeed = 20;    
     }
 }

@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SpeedBoost",
+                    "type": "Button",
+                    "id": "9fc64928-cbbb-4adf-8d6f-ed23a07b7154",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -274,6 +283,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "MeleeEquip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba228854-2a3f-4a06-bd34-747351ada342",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold(duration=4)",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "SpeedBoost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f77e289b-c55b-4590-8fd9-0691352faa7d",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Hold(duration=4)",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "SpeedBoost",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
