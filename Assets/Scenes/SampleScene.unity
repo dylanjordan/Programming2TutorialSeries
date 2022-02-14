@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 172133428}
   - component: {fileID: 172133430}
   - component: {fileID: 172133431}
+  - component: {fileID: 172133432}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -189,7 +190,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 2
   m_SleepingMode: 1
@@ -234,6 +235,8 @@ MonoBehaviour:
   _noWeaponArms: {fileID: 1528044318}
   _weaponParent: {fileID: 880500652}
   _weaponObjInHand: {fileID: 0}
+  _mouseInputName: MouseKey
+  _controllerInputName: Controller
   _weaponInHand: {fileID: 0}
   _rb: {fileID: 172133428}
   _playerHealthDisp: {fileID: 1781034502}
@@ -256,6 +259,76 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreDisplay: {fileID: 2047198529}
+--- !u!114 &172133432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172133427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 460f3066965a4f04ea4e7fe314b8dd92, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 172133430}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UpdateCurrentControlScheme
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 613a5ac5-2cc7-44eb-8ea7-d90825404ff2
+    m_ActionName: Doom_Default/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5844cf3c-4115-4d94-a783-4cb573e00b2a
+    m_ActionName: Doom_Default/Aiming[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e08c9044-6195-4655-b16b-532eaf8146a2
+    m_ActionName: Doom_Default/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46e556af-5753-4f7d-ad4c-92cd832b3ccd
+    m_ActionName: Doom_Default/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1b0b484-083f-4f2a-8161-0b2104d6f6c6
+    m_ActionName: Doom_Default/CycleWeaponDown[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 780532d2-a216-46c2-9653-34396b6ea179
+    m_ActionName: Doom_Default/CycleWeaponUp[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 04ed3359-4c0e-42d6-967e-389b99724703
+    m_ActionName: Doom_Default/AimingController
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Mouse
+  m_DefaultActionMap: Doom_Default
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &255729499
 PrefabInstance:
   m_ObjectHideFlags: 0

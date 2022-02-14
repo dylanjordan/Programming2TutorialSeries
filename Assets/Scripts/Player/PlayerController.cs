@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,15 @@ public class PlayerController : MonoBehaviour
     public GameObject _noWeaponArms;
     public GameObject _weaponParent;
     public GameObject _weaponObjInHand = null;
+
+    private DoomControls _dc;
+
+    private PlayerInput _playerInput;
+
+    private string _currentControlScheme;
+
+    public string _mouseInputName = "MouseKey";
+    public string _controllerInputName = "Controller";
 
     public Weapon _weaponInHand = null;
 
@@ -30,7 +40,8 @@ public class PlayerController : MonoBehaviour
 
     public bool _isDead = false;
     public bool _isHoldingWeapon = false;
-    
+
+    private bool _usingMouseInput = true;
     private bool _LastHoldVal = false;
     private bool _firing = false;
 
@@ -38,12 +49,30 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        _dc = new DoomControls();
+
+        _playerInput = GetComponent<PlayerInput>();
+
+        _currentControlScheme = _playerInput.currentControlScheme;
+
+        InitInputActions();
+
         if (_rb == null)
         {
             _rb = GetComponent<Rigidbody2D>();
         }
 
         ResetHealth();
+    }
+
+    private void OnEnable()
+    {
+        _dc.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _dc.Disable();
     }
 
     // Update is called once per frame
@@ -59,72 +88,67 @@ public class PlayerController : MonoBehaviour
         {
             FireWeapon();
         }
-
-        MovePlayer();
-
-        Vector2 aimPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        AimPlayer(aimPos);
-
-        WeaponInput();
     }
 
-    private void MovePlayer()
+    private void InitInputActions()
     {
-        Vector2 movementDir = new Vector2(0.0f, 0.0f);
+        _dc.Doom_Default.Movement.performed += ctx => MovePlayer(ctx.ReadValue<Vector2>());
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            movementDir += new Vector2(0.0f, 1.0f);
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            movementDir += new Vector2(0.0f, -1.0f);
-        }
+        _dc.Doom_Default.Movement.canceled += ctx => MovePlayer(new Vector2());
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            movementDir += new Vector2(-1.0f, 0.0f);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            movementDir += new Vector2(1.0f, 0.0f);
-        }
+        _dc.Doom_Default.Aiming.performed += ctx => AimPlayer(ctx.ReadValue<Vector2>());
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            _firing = true;
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            _firing = false;
-        }
+        _dc.Doom_Default.AimingController.performed += ctx => AimPlayer(ctx.ReadValue<Vector2>());
 
+        _dc.Doom_Default.Attack.started += ctx => _firing = true;
+
+        _dc.Doom_Default.Attack.canceled += ctx => _firing = false;
+
+        _dc.Doom_Default.CycleWeaponDown.started += ctx => CycleWeaponDown();
+
+        _dc.Doom_Default.CycleWeaponUp.started += ctx => CycleWeaponUp();
+
+        _dc.Doom_Default.MeleeEquip.started += ctx => EquipMelee();
+    }
+
+    public void UpdateCurrentControlScheme()
+    {
+        if (_playerInput != null)
+        {
+            _currentControlScheme = _playerInput.currentControlScheme;
+
+            if (_mouseInputName == _currentControlScheme)
+            {
+                _usingMouseInput = true;
+            }
+            else
+            {
+                _usingMouseInput = false;
+            }
+        }
+    }
+
+    private void MovePlayer(Vector2 movementDir)
+    {
         _rb.velocity = movementDir * (_playerSpeed);
     }
 
     private void AimPlayer(Vector2 aimPos)
     {
         Vector2 lookAtDir;
-
-        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(_player.transform.position);
-        lookAtDir = aimPos - new Vector2(playerScreenPoint.x, playerScreenPoint.y);
+        if (_usingMouseInput)
+        {
+            Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(_player.transform.position);
+            lookAtDir = aimPos - new Vector2(playerScreenPoint.x, playerScreenPoint.y);
+        }
+        else
+        {
+            lookAtDir = aimPos;
+        }
 
         float angle = Mathf.Atan2(-lookAtDir.x, lookAtDir.y) * Mathf.Rad2Deg;
 
         _player.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
-    
-    private void WeaponInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            CycleWeaponDown();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            CycleWeaponUp();
-        }
     }
     private void CycleWeaponUp()
     {
@@ -153,6 +177,11 @@ public class PlayerController : MonoBehaviour
             EquipWeapon(_currentWeapon - 1);
         }
 
+    }
+
+    private void EquipMelee()
+    {
+        EquipWeapon(0);
     }
     private void UnequipWeapon()
     {
