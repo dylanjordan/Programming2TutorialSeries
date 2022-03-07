@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
         if (_firing)
         {
             FireWeapon();
+            Debug.Log("Weapon Fired");
         }
 
         if (Time.time > _nextBoost)
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
         if (Time.time < _nextBoost)
             {
                 _playerSpeed = 10;
+                Debug.LogWarning("Boost active. Need to optimize this mechanic before completion");
             }
         }
     }
@@ -147,6 +149,11 @@ public class PlayerController : MonoBehaviour
                 _usingMouseInput = false;
             }
         }
+
+        if (_playerInput == null)
+        {
+            Debug.LogError("there is no player input!");
+        }
     }
 
     private void MovePlayer(Vector2 movementDir)
@@ -161,10 +168,16 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(_player.transform.position);
             lookAtDir = aimPos - new Vector2(playerScreenPoint.x, playerScreenPoint.y);
+            lookAtDir.Normalize();
         }
         else
         {
             lookAtDir = aimPos;
+        }
+
+        if (lookAtDir.normalized != lookAtDir)
+        {
+            Debug.LogWarning("LookAtDir Not Normalized");
         }
 
         float angle = Mathf.Atan2(-lookAtDir.x, lookAtDir.y) * Mathf.Rad2Deg;

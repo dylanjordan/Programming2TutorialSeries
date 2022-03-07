@@ -88,6 +88,7 @@ public class Enemy : MonoBehaviour
     public void SeekPlayer(Vector3 dirToPlayer)
     {
         _rb.velocity = dirToPlayer.normalized * _enemySpeed;
+       // Debug.Log("Enemy is seeking player");
     }
 
     public void FleePlayer(Vector3 dirToPlayer)
