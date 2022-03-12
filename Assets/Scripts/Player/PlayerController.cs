@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public List<GameObject> _weaponPrefabs;
 
+    private Interactable _currentInteractable;
+
     public GameObject _player;
     public GameObject _deadBody;
     public GameObject _weaponArms;
@@ -125,6 +127,8 @@ public class PlayerController : MonoBehaviour
 
         _dc.Doom_Default.Attack.canceled += ctx => _firing = false;
 
+        _dc.Doom_Default.Interact.performed += ctx => InteractWithCurrentObject();
+
         _dc.Doom_Default.CycleWeaponDown.started += ctx => CycleWeaponDown();
 
         _dc.Doom_Default.CycleWeaponUp.started += ctx => CycleWeaponUp();
@@ -183,6 +187,14 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(-lookAtDir.x, lookAtDir.y) * Mathf.Rad2Deg;
 
         _player.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    private void InteractWithCurrentObject()
+    {
+        if (_currentInteractable != null)
+        {
+            _currentInteractable.Interact();
+        }
     }
     private void CycleWeaponUp()
     {
@@ -323,5 +335,28 @@ public class PlayerController : MonoBehaviour
     private void SpeedBoost()
     {
         _playerSpeed = 20;    
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Interactable objectToInteract;
+
+        if (collision.TryGetComponent<Interactable>(out objectToInteract))
+        {
+            _currentInteractable = objectToInteract;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Interactable objectLeavingInteract;
+
+        if (collision.TryGetComponent<Interactable>(out objectLeavingInteract))
+        {
+            if (objectLeavingInteract == _currentInteractable)
+            {
+                _currentInteractable = null;
+            }
+        }
     }
 }
