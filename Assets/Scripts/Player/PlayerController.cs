@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
     public float _coolDown = 3;
 
     [Range(1.0f, 10.0f)]
-    public float _playerSpeed = 10.0f;
+    public float _playerDefaultSpeed = 10.0f;
+    public float _currentSpeed = 10.0f;
 
     private float _nextBoost = 0;
 
@@ -96,21 +97,6 @@ public class PlayerController : MonoBehaviour
             FireWeapon();
             Debug.Log("Weapon Fired");
         }
-
-        if (Time.time > _nextBoost)
-        {
-            if (_boost)
-            {
-                SpeedBoost();
-                _nextBoost = Time.time + _coolDown;
-                _boost = false;
-            }
-        if (Time.time < _nextBoost)
-            {
-                _playerSpeed = 10;
-                Debug.LogWarning("Boost active. Need to optimize this mechanic before completion");
-            }
-        }
     }
 
     private void InitInputActions()
@@ -162,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer(Vector2 movementDir)
     {
-        _rb.velocity = movementDir * (_playerSpeed);
+        _rb.velocity = movementDir * (_playerDefaultSpeed);
     }
 
     private void AimPlayer(Vector2 aimPos)
@@ -281,6 +267,16 @@ public class PlayerController : MonoBehaviour
             _currentHealth = _maxHealth;
         }
     }
+
+    public void SpeedBoost(float speed)
+    {
+        _playerDefaultSpeed += speed;
+    }
+
+    public void ResetSpeed()
+    {
+        _currentSpeed = _playerDefaultSpeed;
+    }
     private void UpdateWeaponDisplay()
     {
         if (_LastHoldVal != _isHoldingWeapon)
@@ -330,11 +326,6 @@ public class PlayerController : MonoBehaviour
         {
             _weaponInHand.Attack();
         }
-    }
-
-    private void SpeedBoost()
-    {
-        _playerSpeed = 20;    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
