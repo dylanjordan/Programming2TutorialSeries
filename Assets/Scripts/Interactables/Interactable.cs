@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public abstract class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour
 {
-    public abstract void Interact();
+    public AudioClip _InteractSound;
+    public virtual void Interact()
+    {
+        AudioSource.PlayClipAtPoint(_InteractSound, transform.position);
+    }
 }

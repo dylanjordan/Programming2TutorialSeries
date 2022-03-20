@@ -2063,6 +2063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a6f0e47847be945a6c5445923eb598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deathSound: {fileID: 8300000, guid: 4eea373aff6d5ce42859a7ffb78f3c9e, type: 3}
   _maxHealth: 30
   _killPointVal: 500
   _enemySpeed: 4
@@ -2081,8 +2082,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169a207ea651f14438ed7b8a5eab270f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSound: {fileID: 0}
+  _attackSound: {fileID: 8300000, guid: 8f395f81fdd4a8b428b6decd1d281845, type: 3}
   _attackRate: 6
+  _damageModifier: 1
   _bulletPrefab: {fileID: 8748559324765426364, guid: 3d1f1b450ae36754b98bf78a6940d9a8, type: 3}
   _firingPoint: {fileID: 1172708936443401615}
   _numBullets: 1

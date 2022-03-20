@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public AudioClip _deathSound;
     Rigidbody2D _rb;
 
     public float _maxHealth = 10.0f;
@@ -73,6 +74,8 @@ public class Enemy : MonoBehaviour
             Utility.AddScoreToManager(_killPointVal);
 
             EnemyManager._totalEnemies--;
+
+            AudioSource.PlayClipAtPoint(_deathSound, transform.position);
         }
     }
 

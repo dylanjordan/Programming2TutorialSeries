@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioClip _playerDeathSound;
 
     public List<GameObject> _weaponPrefabs;
 
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput _playerInput;
 
+    public int _playerLives = 3;
+
     private string _currentControlScheme;
 
     public string _mouseInputName = "MouseKey";
@@ -33,14 +36,18 @@ public class PlayerController : MonoBehaviour
 
     public Text _playerHealthDisp;
     public Text _deathMessage;
+    public Text _livesDisplay;
+    public Text _playerLiveLostText;
 
     public float _maxHealth = 100.0f;
     public float _currentHealth = 100.0f;
     public float _coolDown = 3;
+    public float _counter = 0.0f;
 
     [Range(1.0f, 10.0f)]
     public float _playerDefaultSpeed = 10.0f;
     public float _currentSpeed = 10.0f;
+    public float _playerLiveLostTime = 5.0f;
 
     private float _nextBoost = 0;
 
@@ -52,6 +59,8 @@ public class PlayerController : MonoBehaviour
     private bool _LastHoldVal = false;
     private bool _firing = false;
     private bool _boost;
+    private bool _isImmortal = false;
+    private bool _playerLiveLostDisplaying = false;
 
     private int _currentWeapon = -1;
     // Start is called before the first frame update
@@ -91,6 +100,8 @@ public class PlayerController : MonoBehaviour
         UpdateHealthDisplay();
 
         CheckIfDead();
+
+        UpdateImmortality();
 
         if (_firing)
         {
@@ -144,6 +155,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogError("there is no player input!");
         }
+    }
+
+    private void ResetPlayer()
+    {
+        UnequipWeapon();
+        ResetHealth();
+        _rb.position = new Vector2(0.0f, 0.0f);
     }
 
     private void MovePlayer(Vector2 movementDir)
@@ -254,8 +272,11 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _currentHealth -= damage;
-        Debug.Log(damage);
+        if (!_isImmortal)
+        {
+            _currentHealth -= damage;
+            Debug.Log(damage);
+        }
     }
 
     public void HealDamage (float heal)
@@ -297,6 +318,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void UpdateLivesDisplay()
+    {
+        if (_livesDisplay != null)
+        {
+            _livesDisplay.text = _playerLives.ToString();
+        }
+    }
+
+    private void UpdateImmortality()
+    {
+        if (_playerLiveLostText != null)
+        {
+            if (_playerLiveLostDisplaying)
+            {
+                _counter += Time.deltaTime;
+
+                if (_counter >= _playerLiveLostTime)
+                {
+                    _isImmortal = false;
+
+                    _playerLiveLostDisplaying = false;
+                    _playerLiveLostText.gameObject.SetActive(false);
+                    _counter = 0.0f;
+                }
+            }
+        }
+    }
     private void CheckIfDead()
     {
         if (_currentHealth <= 0.0f && !_isDead)
@@ -309,15 +357,32 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        _isDead = true;
+        if (_playerLives > 0)
+        {
+            _playerLives--;
+            ResetPlayer();
+            UpdateLivesDisplay();
 
-        _player.SetActive(false);
+            _isImmortal = true;
+            _playerLiveLostText.gameObject.SetActive(true);
+            _playerLiveLostDisplaying = true;
+        }
+        else
+        {
+            _isDead = true;
 
-        _deadBody.SetActive(true);
+            _player.SetActive(false);
 
-        _deathMessage.gameObject.SetActive(true);
+            if (_playerDeathSound != null)
+            {
+                AudioSource.PlayClipAtPoint(_playerDeathSound, transform.position);
+            }
+            _deadBody.SetActive(true);
 
-        Time.timeScale = 0.0f;
+            _deathMessage.gameObject.SetActive(true);
+
+            Time.timeScale = 0.0f;
+        }
     }
 
     private void FireWeapon()

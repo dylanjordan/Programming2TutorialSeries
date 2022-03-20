@@ -26,6 +26,8 @@ public class Gun : Weapon
 
     public void Fire()
     {
+        PlaySound();
+
         for (int i = 0; i < _numBullets; i++)
         {
             SpawnBullet();
@@ -46,5 +48,12 @@ public class Gun : Weapon
         Vector2 direction2D = new Vector2(direction3D.x, direction3D.y).normalized;
 
         spawnedBullet.GetComponent<Rigidbody2D>().AddForce(direction2D * _bulletSpeed);
+
+        spawnedBullet.GetComponent<Bullet>()._damageMod = _damageModifier;
+    }
+
+    public void PlaySound()
+    {
+        AudioSource.PlayClipAtPoint(_attackSound, transform.position);
     }
 }

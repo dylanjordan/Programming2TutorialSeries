@@ -9,6 +9,7 @@ public abstract class Weapon : MonoBehaviour
 
     //Rate of attack for weapon
     public float _attackRate;
+    public float _damageModifier = 1.0f;
     //Time since last attack
     protected float _timeSinceAttack = 0.0f;
     //Can the weapon attack

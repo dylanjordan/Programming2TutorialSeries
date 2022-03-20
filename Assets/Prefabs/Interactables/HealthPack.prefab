@@ -626,4 +626,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d57198ed88e634d977975591d2cb5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _InteractSound: {fileID: 8300000, guid: 34e5d2404c6961c44a5efed7106c9ff7, type: 3}
   _healValue: 50

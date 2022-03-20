@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169a207ea651f14438ed7b8a5eab270f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSound: {fileID: 0}
+  _attackSound: {fileID: 8300000, guid: d4d6c4321254b3b4d9ddeded821d2e87, type: 3}
   _attackRate: 2
   _bulletPrefab: {fileID: 9086347782647494938, guid: aa38716476ae9b948adb7fa21e179d71, type: 3}
   _firingPoint: {fileID: 1682251313427129376}

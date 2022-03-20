@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1c698e6f6f29c4fb40d9eb8f3f6b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deathSound: {fileID: 8300000, guid: 36ac547fe272add46a719ed29999ee36, type: 3}
   _maxHealth: 20
   _killPointVal: 350
   _enemySpeed: 10

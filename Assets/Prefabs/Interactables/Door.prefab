@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc00488974b5f54e9c5e277bc22aa01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _InteractSound: {fileID: 8300000, guid: c6697c68d19d6784186ebdd9cbb99800, type: 3}
   _moveX: 1
   _moveRange: 5
   _timeToClose: 0.5
