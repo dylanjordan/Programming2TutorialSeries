@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (_firing)
         {
             FireWeapon();
-            Debug.Log("Weapon Fired");
+            //Debug.Log("Weapon Fired");
         }
     }
 
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
         if (_playerInput == null)
         {
-            Debug.LogError("there is no player input!");
+            //Debug.LogError("there is no player input!");
         }
     }
 
@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
         if (lookAtDir.normalized != lookAtDir)
         {
-            Debug.LogWarning("LookAtDir Not Normalized");
+            //Debug.LogWarning("LookAtDir Not Normalized");
         }
 
         float angle = Mathf.Atan2(-lookAtDir.x, lookAtDir.y) * Mathf.Rad2Deg;

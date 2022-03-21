@@ -165,12 +165,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackSound: {fileID: 8300000, guid: d4d6c4321254b3b4d9ddeded821d2e87, type: 3}
-  _attackRate: 2
+  _attackRate: 1.5
+  _damageModifier: 1
   _bulletPrefab: {fileID: 9086347782647494938, guid: aa38716476ae9b948adb7fa21e179d71, type: 3}
   _firingPoint: {fileID: 1682251313427129376}
-  _numBullets: 10
-  _spreadAngle: 30
-  _bulletSpeed: 10
+  _numBullets: 13
+  _spreadAngle: 45
+  _bulletSpeed: 13
 --- !u!1 &2647629981234354090
 GameObject:
   m_ObjectHideFlags: 0

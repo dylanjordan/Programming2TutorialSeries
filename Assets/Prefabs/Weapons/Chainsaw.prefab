@@ -816,7 +816,7 @@ MonoBehaviour:
   _attackSound: {fileID: 8300000, guid: 81ad38945edfa7142acbdaea7c68e9a7, type: 3}
   _attackRate: 0.1
   _damageModifier: 1
-  _damageValue: 1
+  _damageValue: 3
   _idleSource: {fileID: 4937999978922700257}
 --- !u!82 &4937999978922700257
 AudioSource:

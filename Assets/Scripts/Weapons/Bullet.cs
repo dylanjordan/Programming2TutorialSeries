@@ -25,5 +25,10 @@ public class Bullet : MonoBehaviour
         }
 
         Destroy(this.gameObject);
+
+        if (Utility._debug)
+        {
+            Debug.Log(gameObject.name + " hit " + collision.gameObject.name + " for " + (_damageValue * _damageMod) + " damage");
+        }
     }
 }

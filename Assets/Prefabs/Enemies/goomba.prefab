@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deathSound: {fileID: 8300000, guid: 36ac547fe272add46a719ed29999ee36, type: 3}
-  _maxHealth: 20
-  _killPointVal: 350
-  _enemySpeed: 10
+  _maxHealth: 15
+  _killPointVal: 400
+  _enemySpeed: 8
   _contactDamage: 2

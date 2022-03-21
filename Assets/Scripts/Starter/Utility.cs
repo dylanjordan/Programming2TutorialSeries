@@ -7,6 +7,8 @@ public class Utility
     //Static reference to the player object
     static GameObject _player;
 
+    public static bool _debug = true;
+
     public static GameObject GetPlayerObject()
     {
         //If we don't have player object ref
