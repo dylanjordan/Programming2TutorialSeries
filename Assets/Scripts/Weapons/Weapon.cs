@@ -14,32 +14,25 @@ public abstract class Weapon : MonoBehaviour
     protected float _timeSinceAttack = 0.0f;
     //Can the weapon attack
     protected bool _canAttack = true;
+    bool _onCooldown = false;
     
     //Abstract attack function
     public abstract void Attack();
 
-    public void UpdateCanAttack()
+    private IEnumerator AttackWithCoolDown()
     {
-        //if can't attack
-        if (!_canAttack)
-        {
-            //Add time passed since last check
-            _timeSinceAttack += Time.deltaTime;
-
-            //Check if time is past attack rate
-            if (_timeSinceAttack >= _attackRate)
-            {
-                //We can attack
-                _canAttack = true;
-                //Reset time since attack
-                _timeSinceAttack = 0.0f;
-            }
-        }
+        _onCooldown = true;
+        yield return new WaitForSeconds(_attackRate);
+        _canAttack = true;
+        _onCooldown = false;
     }
 
     public void Update()
     {
         //Update whether we can attack
-        UpdateCanAttack();
+        if (!_canAttack && !_onCooldown)
+        {
+            StartCoroutine(AttackWithCoolDown());
+        }
     }
 }

@@ -42,12 +42,11 @@ public class PlayerController : MonoBehaviour
     public float _maxHealth = 100.0f;
     public float _currentHealth = 100.0f;
     public float _coolDown = 3;
-    public float _counter = 0.0f;
 
     [Range(1.0f, 10.0f)]
     public float _playerDefaultSpeed = 10.0f;
     public float _currentSpeed = 10.0f;
-    public float _playerLiveLostTime = 5.0f;
+    public float _playerLiveLostCooldown = 5.0f;
 
     private float _nextBoost = 0;
 
@@ -59,8 +58,7 @@ public class PlayerController : MonoBehaviour
     private bool _LastHoldVal = false;
     private bool _firing = false;
     private bool _boost;
-    private bool _isImmortal = false;
-    private bool _playerLiveLostDisplaying = false;
+    public bool _isImmortal = false;
 
     private int _currentWeapon = -1;
     // Start is called before the first frame update
@@ -100,8 +98,6 @@ public class PlayerController : MonoBehaviour
         UpdateHealthDisplay();
 
         CheckIfDead();
-
-        UpdateImmortality();
 
         if (_firing)
         {
@@ -294,6 +290,11 @@ public class PlayerController : MonoBehaviour
         _playerDefaultSpeed += speed;
     }
 
+    public void IsImmortal(bool immortal)
+    {
+        _isImmortal = immortal;
+    }
+
     public void ResetSpeed()
     {
         _currentSpeed = _playerDefaultSpeed;
@@ -325,26 +326,6 @@ public class PlayerController : MonoBehaviour
             _livesDisplay.text = _playerLives.ToString();
         }
     }
-
-    private void UpdateImmortality()
-    {
-        if (_playerLiveLostText != null)
-        {
-            if (_playerLiveLostDisplaying)
-            {
-                _counter += Time.deltaTime;
-
-                if (_counter >= _playerLiveLostTime)
-                {
-                    _isImmortal = false;
-
-                    _playerLiveLostDisplaying = false;
-                    _playerLiveLostText.gameObject.SetActive(false);
-                    _counter = 0.0f;
-                }
-            }
-        }
-    }
     private void CheckIfDead()
     {
         if (_currentHealth <= 0.0f && !_isDead)
@@ -354,7 +335,16 @@ public class PlayerController : MonoBehaviour
             Die();
         }
     }
+    private IEnumerator DeathMessageAndImmortality()
+    {
+        _isImmortal = true;
+        _playerLiveLostText.gameObject.SetActive(true);
 
+        yield return new WaitForSeconds(_playerLiveLostCooldown);
+
+        _isImmortal = false;
+        _playerLiveLostText.gameObject.SetActive(false);
+    }
     private void Die()
     {
         if (_playerLives > 0)
@@ -363,9 +353,7 @@ public class PlayerController : MonoBehaviour
             ResetPlayer();
             UpdateLivesDisplay();
 
-            _isImmortal = true;
-            _playerLiveLostText.gameObject.SetActive(true);
-            _playerLiveLostDisplaying = true;
+            StartCoroutine(DeathMessageAndImmortality());
         }
         else
         {
@@ -415,4 +403,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    
 }

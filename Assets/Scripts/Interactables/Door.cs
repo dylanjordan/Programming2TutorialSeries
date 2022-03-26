@@ -9,29 +9,24 @@ public class Door : Interactable
 
     public float _moveRange = 5.0f;
     public float _timeToClose = 10.0f;
-    float _timePassedSinceOpen = 0.0f;
 
-    private void Update()
-    {
-        if (isOpen)
-        {
-            _timePassedSinceOpen += Time.deltaTime;
-
-            if (_timePassedSinceOpen >= _timeToClose)
-            {
-                CloseDoor();
-                _timePassedSinceOpen = 0.0f;
-            }
-        }
-    }
     public override void Interact()
     {
         base.Interact();
 
         if (!isOpen)
         {
-            OpenDoor();
+            StartCoroutine(OpenDoorForTime());
         }
+    }
+
+    private IEnumerator OpenDoorForTime()
+    {
+        OpenDoor();
+
+        yield return new WaitForSeconds(_timeToClose);
+
+        CloseDoor();
     }
 
     private void OpenDoor()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8817254740844949367}
   - component: {fileID: 8817254740844949365}
   - component: {fileID: 8817254740844949366}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8817254740911359264}
   - component: {fileID: 8817254740911359271}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8817254741581051246}
   - component: {fileID: 8817254741581051245}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hexagon Pointed-Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 8817254741619943014}
   - component: {fileID: 8817254741619943008}
   - component: {fileID: -6721169165464561378}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WeaponUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8817254741645093947}
   - component: {fileID: 8817254741645093946}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Isometric Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
