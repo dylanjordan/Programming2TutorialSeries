@@ -5,8 +5,10 @@ using UnityEngine;
 public class Gun : Weapon
 {
     public GameObject _bulletPrefab;
+    public GameObject _flashParticle;
 
     public Transform _firingPoint;
+    public Transform _flashPoint;
 
     public int _numBullets = 1;
 
@@ -26,7 +28,7 @@ public class Gun : Weapon
 
     public void Fire()
     {
-        PlaySound();
+        PlayGunEffects();
 
         for (int i = 0; i < _numBullets; i++)
         {
@@ -52,6 +54,21 @@ public class Gun : Weapon
         spawnedBullet.GetComponent<Bullet>()._damageMod = _damageModifier;
     }
 
+    public void PlayGunEffects()
+    {
+        PlayFlashEffect();
+
+        PlaySound();
+    }
+
+    public void PlayFlashEffect()
+    {
+        if (_flashPoint != null && _flashParticle != null)
+        {
+            GameObject spawnedFlash = Instantiate(_flashParticle, _flashPoint.position, _flashPoint.rotation, _flashPoint);
+            Destroy(spawnedFlash, 1.0f);
+        }
+    }
     public void PlaySound()
     {
         AudioSource.PlayClipAtPoint(_attackSound, transform.position);

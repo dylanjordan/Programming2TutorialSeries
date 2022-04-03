@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject _healParticle;
+    public Transform _healPoint;
+
     public AudioClip _playerDeathSound;
 
     public List<GameObject> _weaponPrefabs;
@@ -278,6 +281,8 @@ public class PlayerController : MonoBehaviour
     public void HealDamage (float heal)
     {
         _currentHealth += heal;
+        GameObject spawnedHeal = Instantiate(_healParticle, _healPoint.position, _healPoint.rotation, _healPoint);
+        Destroy(spawnedHeal, 1.0f);
 
         if (_currentHealth >= _maxHealth)
         {

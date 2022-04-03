@@ -5,8 +5,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float _damageValue;
-
     public float _damageMod = 1.0f;
+
+    public GameObject _explosionParticle;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -23,6 +24,8 @@ public class Bullet : MonoBehaviour
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             player.TakeDamage(_damageValue * _damageMod);
         }
+        GameObject explosionObj = Instantiate(_explosionParticle, transform.position, _explosionParticle.transform.rotation);
+        Destroy(explosionObj, 1.0f);
 
         Destroy(this.gameObject);
 

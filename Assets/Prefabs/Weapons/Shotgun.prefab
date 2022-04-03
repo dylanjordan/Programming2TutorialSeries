@@ -168,7 +168,9 @@ MonoBehaviour:
   _attackRate: 1.5
   _damageModifier: 1
   _bulletPrefab: {fileID: 9086347782647494938, guid: aa38716476ae9b948adb7fa21e179d71, type: 3}
+  _flashParticle: {fileID: 1194282846638486807, guid: 3c5c802b02e43054bb7906b556aef9db, type: 3}
   _firingPoint: {fileID: 1682251313427129376}
+  _flashPoint: {fileID: 1471073081133611892}
   _numBullets: 13
   _spreadAngle: 45
   _bulletSpeed: 13

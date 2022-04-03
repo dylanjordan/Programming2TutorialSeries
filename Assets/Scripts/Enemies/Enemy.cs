@@ -7,6 +7,10 @@ public class Enemy : MonoBehaviour
     public AudioClip _deathSound;
     Rigidbody2D _rb;
 
+    public Transform _bloodPoint;
+
+    public GameObject _bloodParticle;
+
     public float _maxHealth = 10.0f;
 
     float _currentHealth = 10.0f;
@@ -53,6 +57,8 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
+
+        SpawnBloodEffect();
     }
 
     public void HealDamage(float heal)
@@ -129,6 +135,12 @@ public class Enemy : MonoBehaviour
         float angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;
 
         gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    public void SpawnBloodEffect()
+    {
+        GameObject spawnedBlood = Instantiate(_bloodParticle, _bloodPoint.position, _bloodPoint.rotation, _bloodPoint);
+        Destroy(spawnedBlood, 1.0f);
     }
 
     private void OnCollisionStay2D(Collision2D collision)

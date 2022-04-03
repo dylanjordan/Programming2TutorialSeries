@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2189812476463730399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3838165948357534066}
+  m_Layer: 7
+  m_Name: BloodPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3838165948357534066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189812476463730399}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7375225726874648135}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3758453347117087558
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +374,7 @@ Transform:
   - {fileID: 7375225728256260859}
   - {fileID: 7375225727731752702}
   - {fileID: 7375225728390082290}
+  - {fileID: 3838165948357534066}
   m_Father: {fileID: 7375225728531049618}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2064,6 +2095,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deathSound: {fileID: 8300000, guid: 4eea373aff6d5ce42859a7ffb78f3c9e, type: 3}
+  _bloodPoint: {fileID: 3838165948357534066}
+  _bloodParticle: {fileID: 4360137343632219632, guid: cdeaa08e5692ff646979815b5bbfa6e0, type: 3}
   _maxHealth: 30
   _killPointVal: 700
   _enemySpeed: 3
@@ -2086,7 +2119,9 @@ MonoBehaviour:
   _attackRate: 8
   _damageModifier: 1
   _bulletPrefab: {fileID: 8748559324765426364, guid: 3d1f1b450ae36754b98bf78a6940d9a8, type: 3}
+  _flashParticle: {fileID: 0}
   _firingPoint: {fileID: 1172708936443401615}
+  _flashPoint: {fileID: 0}
   _numBullets: 1
   _spreadAngle: 0
   _bulletSpeed: 4

@@ -332,3 +332,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageValue: 7
+  _damageMod: 1
+  _explosionParticle: {fileID: 6131906354804024642, guid: 3f4c8978c83e2bb40b12081b8e5dde4b, type: 3}
